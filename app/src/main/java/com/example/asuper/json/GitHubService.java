@@ -15,12 +15,14 @@ import retrofit2.http.Path;
 public interface GitHubService {
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
+            .baseUrl("https://cafenomad.tw/api/v1.1/cafes/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    @GET("users/{user}/repos")
-    Call<List<Repo>> listRepos(@Path("user") String user);
+    @GET("taipei")
+    Call<List<Cafe>> listCafes1();
+
+
 
 
 }

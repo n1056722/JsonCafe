@@ -2,6 +2,7 @@ package com.example.asuper.json;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -14,27 +15,28 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public class JsonActivity extends AppCompatActivity {
-private TextView tv;
-    private TextView tv2;
+private ListView lv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_json);
-        tv= (TextView) findViewById(R.id.tv);
-        tv2= (TextView) findViewById(R.id.tv2);
-        GitHubService service = GitHubService.retrofit.create(GitHubService.class);
-        Call<List<Repo>> repos = service.listRepos("octocat");
+        lv= (ListView) findViewById(R.id.lv);
 
-        repos.enqueue(new Callback<List<Repo>>() {
+        GitHubService service = GitHubService.retrofit.create(GitHubService.class);
+        Call<List<Cafe>> cafe = service.listCafes1();
+
+
+        cafe.enqueue(new Callback<List<Cafe>>() {
             @Override
-            public void onResponse(Call<List<Repo>> call, Response<List<Repo>> response) {
-                List<Repo>data=response.body();
-                tv.setText(data.toString());
+            public void onResponse(Call<List<Cafe>> call, Response<List<Cafe>> response) {
+                List<Cafe>data=response.body();
+                lv.setAdapter(new JsonAdapter());
             }
 
             @Override
-            public void onFailure(Call<List<Repo>> call, Throwable t) {
-               tv.setText(t.toString());
+            public void onFailure(Call<List<Cafe>> call, Throwable t) {
+               lv.setText(t.toString());
             }
         });
     }
