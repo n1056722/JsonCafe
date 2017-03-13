@@ -21,6 +21,8 @@ public interface GitHubService {
 
     @GET("taipei")
     Call<List<Cafe>> listCafes1();
+    @GET("hsinchu")
+    Call<List<Cafe>> listCafes();
 
 
 
